@@ -71,9 +71,7 @@ const Dashboard: React.FC = () => {
     async function loadCategories(): Promise<void> {
       api.get('/categories').then(response => {
         setCategories(response.data);
-        console.log(response.data);
       });
-
     }
 
     loadCategories();
