@@ -62,7 +62,7 @@ const Dashboard: React.FC = () => {
       api
         .get('/foods', {
           params: {
-            category_like: 1,
+            category_like: selectedCategory,
             name_like: searchValue,
           },
         })
@@ -72,7 +72,6 @@ const Dashboard: React.FC = () => {
             formattedPrice: formatValue(food.price),
           }));
           setFoods(formatedFoods);
-          // console.log(response.data);
         });
     }
 
