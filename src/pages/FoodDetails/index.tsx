@@ -74,7 +74,10 @@ const FoodDetails: React.FC = () => {
   useEffect(() => {
     async function loadFood(): Promise<void> {
       api.get(`/foods/${routeParams.id}`).then(response => {
-        setFood(response.data);
+        setFood({
+          ...response.data,
+          formattedPrice: formatValue(response.data.price),
+        });
       });
     }
 
