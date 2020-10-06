@@ -78,6 +78,13 @@ const FoodDetails: React.FC = () => {
           ...response.data,
           formattedPrice: formatValue(response.data.price),
         });
+
+        setExtras(
+          response.data.extras.map((extra: Omit<Extra, 'quantity'>) => ({
+            ...extra,
+            quantity: 0,
+          })),
+        );
       });
     }
 
