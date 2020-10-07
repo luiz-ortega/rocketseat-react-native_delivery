@@ -42,7 +42,7 @@ const Favorites: React.FC = () => {
     }
 
     loadFavorites();
-  });
+  }, []);
 
   return (
     <Container>
