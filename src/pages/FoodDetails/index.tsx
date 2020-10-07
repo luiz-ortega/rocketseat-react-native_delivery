@@ -91,6 +91,20 @@ const FoodDetails: React.FC = () => {
     loadFood();
   }, [routeParams]);
 
+  useEffect(() => {
+    async function loadFavorite(): Promise<void> {
+      api.get(`/favorites`).then(response => {
+        setIsFavorite(
+          !!response.data.find(
+            (favorite: Food) => favorite.id === routeParams.id,
+          ),
+        );
+      });
+    }
+
+    loadFavorite();
+  }, [routeParams]);
+
   function handleIncrementExtra(id: number): void {
     // Increment extra quantity
   }
@@ -113,6 +127,8 @@ const FoodDetails: React.FC = () => {
     } else {
       api.post(`favorites`, food);
     }
+
+    setIsFavorite(!isFavorite);
   }, [isFavorite, food]);
 
   const cartTotal = useMemo(() => {
@@ -122,7 +138,7 @@ const FoodDetails: React.FC = () => {
 
     const foodTotal = food.price;
 
-    return formatValue(extraTotal + foodTotal);
+    return formatValue((extraTotal + foodTotal) * foodQuantity);
   }, [extras, food, foodQuantity]);
 
   async function handleFinishOrder(): Promise<void> {
